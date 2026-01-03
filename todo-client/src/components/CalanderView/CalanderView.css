@@ -1,0 +1,206 @@
+.calendar-container {
+  position: fixed;
+  right: 3rem;
+  top: 7rem;
+  width: 450px;
+  padding: 1rem 2rem;
+  background: transparent;
+  overflow-y: auto;
+  max-height: calc(100vh - 13rem);
+}
+
+/* Hide default FullCalendar toolbar */
+.calendar-container .fc-toolbar {
+  display: none;
+}
+
+/* Custom header */
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.calendar-nav button {
+  background: transparent;
+  border: none;
+  z-index: 1;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.3s;
+  line-height: 1;
+}
+
+.calendar-nav button:hover {
+  opacity: 0.6;
+}
+
+.calendar-nav .month-year {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #ffffff;
+  min-width: 180px;
+  text-align: center;
+}
+
+/* FullCalendar customization */
+.calendar-container .fc {
+  background: transparent;
+}
+
+.calendar-container .fc-theme-standard td,
+.calendar-container .fc-theme-standard th {
+  border: none;
+}
+
+/* Remove all table backgrounds and borders */
+.calendar-container .fc-scrollgrid,
+.calendar-container .fc-scrollgrid-section,
+.calendar-container .fc-scrollgrid-section > *,
+.calendar-container .fc-scrollgrid-section table,
+.calendar-container table,
+.calendar-container tbody,
+.calendar-container tr {
+  background: transparent !important;
+  border: none !important;
+}
+
+.calendar-container .fc-scrollgrid-sync-table {
+  background: transparent !important;
+}
+
+/* Day headers (Sun, Mon, etc) */
+.calendar-container .fc-col-header-cell {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.5rem 0 1rem 0;
+}
+
+.calendar-container .fc-col-header-cell-cushion {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+/* Day cells */
+.calendar-container .fc-daygrid-day {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.35rem 0;
+}
+
+.calendar-container .fc-daygrid-day-frame {
+  padding: 0;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-container .fc-daygrid-day-number {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+  width: auto;
+}
+
+/* Other month days (grayed out) */
+.calendar-container .fc-day-other .fc-daygrid-day-number {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Current day highlight */
+.calendar-container .fc-day-today {
+  background: transparent !important;
+}
+
+.calendar-container .fc-day-today .fc-daygrid-day-number {
+  background: #5580c4;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Hover effect */
+.calendar-container .fc-daygrid-day:hover .fc-daygrid-day-number {
+  background: rgba(85, 128, 196, 0.3);
+  border-radius: 6px;
+}
+
+/* Remove scrollbar */
+.calendar-container .fc-scroller {
+  overflow: hidden !important;
+}
+
+/* Week overview section */
+.weekly-overview {
+  margin-top: 2.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.weekly-overview h3 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.75rem;
+}
+
+.overview-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.circular-progress {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-value {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-align: center;
+}
