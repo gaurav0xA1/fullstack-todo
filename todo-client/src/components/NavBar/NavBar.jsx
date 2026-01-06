@@ -3,8 +3,9 @@ import { FaPlus, FaClipboardList } from 'react-icons/fa';
 import { AiOutlineRobot } from 'react-icons/ai';
 import { useState } from 'react';
 import AddTaskPopup from '../AddTaskPopup/AddTaskPopup';
+import WeeklySummaryPopup from './WeeklySummaryPopup';
 
-function NavBar({ user, onTaskAdded }) {
+function NavBar({ user, onTaskAdded, onTaskListClick }) {
   const [showChatPopup, setShowChatPopup] = useState(false);
   const [showAddTask, setShowAddTask] = useState(false);
   const [showAIPopup, setShowAIPopup] = useState(false);
@@ -16,7 +17,6 @@ function NavBar({ user, onTaskAdded }) {
 
   const handleAIClick = () => {
     setShowAIPopup(true);
-    setTimeout(() => setShowAIPopup(false), 2000);
   };
 
   const handleAddClick = () => {
@@ -33,7 +33,7 @@ function NavBar({ user, onTaskAdded }) {
   return (
     <>
       <nav className="bottom-navbar">
-        <button className="nav-item" onClick={handleChatClick}>
+        <button className="nav-item" onClick={onTaskListClick}>
           <FaClipboardList size={24} />
         </button>
         <button className="nav-item nav-add" onClick={handleAddClick}>
@@ -50,10 +50,11 @@ function NavBar({ user, onTaskAdded }) {
         </div>
       )}
 
-      {showAIPopup && (
-        <div className="construction-popup">
-          Under Construction
-        </div>
+      {showAIPopup && user && (
+        <WeeklySummaryPopup
+          userId={user.uid || user.id || user._id}
+          onClose={() => setShowAIPopup(false)}
+        />
       )}
 
       {showAddTask && (

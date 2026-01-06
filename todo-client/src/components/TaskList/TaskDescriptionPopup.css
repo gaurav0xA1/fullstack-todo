@@ -1,3 +1,33 @@
+/* Toggle button for completed/incomplete */
+.toggle-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 2.5rem;
+  padding: 0.38rem 1.1rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  border-radius: 16px;
+  border: 1.5px solid #4a6fa5;
+  background: #25324a;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  z-index: 2;
+}
+.toggle-btn.completed {
+  background: #6be09e;
+  color: #1a2233;
+  border-color: #6be09e;
+}
+.toggle-btn.incomplete {
+  background: #e09e6b;
+  color: #fff;
+  border-color: #e09e6b;
+}
+.toggle-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 .task-desc-popup-overlay {
   position: fixed;
   top: 0;
@@ -34,6 +64,11 @@
   position: relative;
   text-align: left;
   animation: slideIn 0.3s ease;
+  overflow: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+.task-desc-popup-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 @keyframes slideIn {

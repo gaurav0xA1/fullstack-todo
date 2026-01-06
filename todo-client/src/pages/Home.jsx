@@ -1,4 +1,5 @@
 import NavBar from '../components/NavBar/NavBar';
+import TaskViewPopup from '../components/TaskViewPopup/TaskViewPopup';
 import TaskList from '../components/TaskList/TaskList';
 import CalanderView from '../components/CalanderView/CalanderView';
 import Sidebar from '../components/Sidebar/Sidebar';
@@ -14,6 +15,7 @@ function Home({ user, onSignOut }) {
   const [showPopup, setShowPopup] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [expandedTaskId, setExpandedTaskId] = useState(null);
+  const [showTaskListPopup, setShowTaskListPopup] = useState(false);
 
 
   //fetch tasks from backend
@@ -39,6 +41,12 @@ function Home({ user, onSignOut }) {
 
   return (
     <div className="home-page">
+      <TaskViewPopup
+        show={showTaskListPopup}
+        onClose={() => setShowTaskListPopup(false)}
+        tasks={tasks}
+        user={user}
+      />
       <div className="top-bar">
         <div className="logo">ToDo</div>
 
@@ -69,7 +77,7 @@ function Home({ user, onSignOut }) {
       />
       <div className="hide-on-mobile">
         <CalanderView />
-        <NavBar user={user} onTaskAdded={handleAdd} />
+        <NavBar user={user} onTaskAdded={handleAdd} onTaskListClick={() => setShowTaskListPopup(true)} />
       </div>
     </div>
   );

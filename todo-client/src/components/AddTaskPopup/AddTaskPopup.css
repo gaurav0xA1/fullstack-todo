@@ -34,6 +34,11 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  overflow: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+.popup-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 @keyframes slideIn {

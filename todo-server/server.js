@@ -2,12 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-
-
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 
 // simple in-memory tasks for demo
 const tasks = [
@@ -24,6 +21,56 @@ const TaskSchema = new mongoose.Schema({
   userId: String, // Associate each task with a user
 });
 const Task = mongoose.model('Task', TaskSchema);
+
+// Helper to get start and end of current week (Monday-Sunday)
+function getWeekRange() {
+  const now = new Date();
+  const day = now.getDay();
+  // JS: Sunday=0, Monday=1, ..., Saturday=6
+  const diffToMonday = (day === 0 ? -6 : 1) - day;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diffToMonday);
+  monday.setHours(0,0,0,0);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23,59,59,999);
+  return { start: monday, end: sunday };
+}
+
+// GET weekly summary for a user
+app.get('/api/weekly-summary/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    if (!userId) return res.status(400).json({ error: 'Missing userId' });
+    const { start, end } = getWeekRange();
+    // Assume task.date is ISO string or YYYY-MM-DD
+    // Convert week range to YYYY-MM-DD for comparison
+    const startStr = start.toISOString().slice(0,10);
+    const endStr = end.toISOString().slice(0,10);
+    // Find tasks for user in this week
+    const tasks = await Task.find({
+      userId,
+      date: { $gte: startStr, $lte: endStr }
+    });
+    // Summarize
+    const summary = {
+      total: tasks.length,
+      completed: tasks.filter(t => t.completed).length,
+      pending: tasks.filter(t => !t.completed).length,
+      byDay: {}
+    };
+    // Group by day
+    tasks.forEach(t => {
+      if (!summary.byDay[t.date]) summary.byDay[t.date] = { total: 0, completed: 0, pending: 0 };
+      summary.byDay[t.date].total++;
+      if (t.completed) summary.byDay[t.date].completed++;
+      else summary.byDay[t.date].pending++;
+    });
+    res.json(summary);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to get weekly summary' });
+  }
+});
 
 // GET tasks from MongoDB, filtered by userId
 app.get('/api/tasks', async (req, res) => {
