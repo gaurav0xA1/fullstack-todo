@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './WeeklySummaryPopup.css';
+import API_BASE_URL from '../../config/api';
 
 export default function WeeklySummaryPopup({ userId, onClose }) {
   const [summary, setSummary] = useState(null);
@@ -9,7 +10,7 @@ export default function WeeklySummaryPopup({ userId, onClose }) {
   useEffect(() => {
     if (!userId) return;
     setLoading(true);
-    fetch(`http://localhost:5000/api/weekly-summary/${userId}`)
+    fetch(`${API_BASE_URL}/api/weekly-summary/${userId}`)
       .then(res => res.json())
       .then(data => {
         setSummary(data);

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import './AddTaskPopup.css';
+import API_BASE_URL from '../../config/api';
 
 
 function AddTaskPopup({ onClose, onAdd, user, editTask }) {
@@ -20,7 +21,7 @@ function AddTaskPopup({ onClose, onAdd, user, editTask }) {
       let res;
       if (editTask && editTask.id) {
         // Edit mode: PATCH
-        res = await fetch(`http://localhost:5000/api/tasks/${editTask.id}`, {
+        res = await fetch(`${API_BASE_URL}/api/tasks/${editTask.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -32,7 +33,7 @@ function AddTaskPopup({ onClose, onAdd, user, editTask }) {
         });
       } else {
         // Add mode: POST
-        res = await fetch('http://localhost:5000/api/tasks', {
+        res = await fetch(`${API_BASE_URL}/api/tasks`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

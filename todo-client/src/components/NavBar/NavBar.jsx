@@ -4,6 +4,7 @@ import { AiOutlineRobot } from 'react-icons/ai';
 import { useState } from 'react';
 import AddTaskPopup from '../AddTaskPopup/AddTaskPopup';
 import WeeklySummaryPopup from './WeeklySummaryPopup';
+import API_BASE_URL from '../../config/api';
 
 function NavBar({ user, onTaskAdded, onTaskListClick }) {
   const [showChatPopup, setShowChatPopup] = useState(false);
@@ -21,7 +22,7 @@ function NavBar({ user, onTaskAdded, onTaskListClick }) {
 
   const handleAddClick = () => {
     setShowAddTask(true);
-    fetch('http://localhost:5000/api/click', {
+    fetch(`${API_BASE_URL}/api/click`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: 'button clicked' })

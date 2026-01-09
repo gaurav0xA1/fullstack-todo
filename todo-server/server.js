@@ -1,17 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// simple in-memory tasks for demo
-const tasks = [
-  { id: 1, title: 'Backend connection test', date: '2025-12-12', completed: false }
-];
 
-mongoose.connect('mongodb://localhost:27017/todoapp');
+// Use environment variable for MongoDB connection (for Render/.env support)
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/todoapp';
+console.log('Connecting to MongoDB:', mongoUri.replace(/\/\/([^:]+):([^@]+)@/, '//<username>:<password>@')); // Log without showing password
+mongoose.connect(mongoUri);
 
 const TaskSchema = new mongoose.Schema({
   title: String,

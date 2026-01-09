@@ -2,6 +2,7 @@ import './TaskList.css';
 import { useState } from 'react';
 import TaskDescriptionPopup from './TaskDescriptionPopup';
 import AddTaskPopup from '../AddTaskPopup/AddTaskPopup';
+import API_BASE_URL from '../../config/api';
 
 function TaskList({ user, tasks = [], expandedTaskId, onExpand, onTasksChanged }) {
 
@@ -27,7 +28,7 @@ function TaskList({ user, tasks = [], expandedTaskId, onExpand, onTasksChanged }
         };
         const handleDeleteTask = async (task) => {
             try {
-                await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
+                await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, {
                     method: 'DELETE',
                 });
                 setDescPopupTask(null);
@@ -63,7 +64,7 @@ function TaskList({ user, tasks = [], expandedTaskId, onExpand, onTasksChanged }
 
     const toggleTask = async (taskId, currentCompleted) => {
         try {
-            await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+            await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ completed: !currentCompleted })
@@ -82,7 +83,7 @@ function TaskList({ user, tasks = [], expandedTaskId, onExpand, onTasksChanged }
     // Delete task handler
     const handleDelete = async (taskId) => {
         try {
-            await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+            await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
                 method: 'DELETE',
             });
             if (onTasksChanged) {

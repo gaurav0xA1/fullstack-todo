@@ -3,6 +3,7 @@ import TaskViewPopup from '../components/TaskViewPopup/TaskViewPopup';
 import TaskList from '../components/TaskList/TaskList';
 import CalanderView from '../components/CalanderView/CalanderView';
 import Sidebar from '../components/Sidebar/Sidebar';
+import API_BASE_URL from '../config/api';
 
 import './Home.css';
 import AddTaskPopup from '../components/AddTaskPopup/AddTaskPopup';
@@ -20,7 +21,7 @@ function Home({ user, onSignOut }) {
 
   //fetch tasks from backend
   const fetchTasks = async () => {
-    const res = await fetch(`http://localhost:5000/api/tasks?userId=${user?.uid}`);
+    const res = await fetch(`${API_BASE_URL}/api/tasks?userId=${user?.uid}`);
     const data = await res.json();
     // Map MongoDB _id to id for consistency
     const tasksWithId = data.tasks.map(task => ({

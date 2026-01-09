@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './TaskDescriptionPopup.css';
 import AddTaskPopup from '../AddTaskPopup/AddTaskPopup';
+import API_BASE_URL from '../../config/api';
 
 function TaskDescriptionPopup({ task, onClose, onDelete, onEdit, user, onTaskUpdated }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -23,7 +24,7 @@ function TaskDescriptionPopup({ task, onClose, onDelete, onEdit, user, onTaskUpd
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: !completed })

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import TaskDescriptionPopup from './TaskDescriptionPopup';
 import './TaskViewPopup.css';
+import API_BASE_URL from '../../config/api';
 
 function TaskViewPopup({ show, onClose, tasks = [], user }) {
     const [search, setSearch] = useState("");
@@ -85,7 +86,7 @@ function TaskViewPopup({ show, onClose, tasks = [], user }) {
                 onTaskUpdated={handleTaskUpdated}
                 onDelete={async (task) => {
                   // Delete from backend
-                  await fetch(`http://localhost:5000/api/tasks/${task.id}`, { method: 'DELETE' });
+                  await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, { method: 'DELETE' });
                   setDescPopupTask(null);
                   // Remove from localTasks
                   setLocalTasks(prev => prev.filter(t => t.id !== task.id));
