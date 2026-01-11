@@ -9,7 +9,7 @@ const app = express();
 // Allow both local and deployed frontend, and support credentials
 const allowedOrigins = [
   'http://localhost:5173', // Vite default
-  'https://your-frontend.vercel.app', // Replace with your deployed frontend URL
+  'https://fullstack-todo-kl83.vercel.app', // Your deployed frontend
 ];
 
 app.use(cors({
