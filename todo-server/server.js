@@ -3,8 +3,28 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+
 const app = express();
-app.use(cors());
+
+// Allow both local and deployed frontend, and support credentials
+const allowedOrigins = [
+  'http://localhost:5173', // Vite default
+  'https://your-frontend.vercel.app', // Replace with your deployed frontend URL
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 
