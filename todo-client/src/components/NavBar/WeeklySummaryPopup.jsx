@@ -10,7 +10,7 @@ export default function WeeklySummaryPopup({ userId, onClose }) {
   useEffect(() => {
     if (!userId) return;
     setLoading(true);
-    fetch(`${API_BASE_URL}/api/weekly-summary/${userId}`)
+    fetch(`${API_BASE_URL}/api/weekly-summary/${userId}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         setSummary(data);

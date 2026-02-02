@@ -27,6 +27,7 @@ function TaskDescriptionPopup({ task, onClose, onDelete, onEdit, user, onTaskUpd
       const res = await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ completed: !completed })
       });
       if (!res.ok) throw new Error('Failed to update task');

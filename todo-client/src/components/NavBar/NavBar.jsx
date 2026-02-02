@@ -25,6 +25,7 @@ function NavBar({ user, onTaskAdded, onTaskListClick }) {
     fetch(`${API_BASE_URL}/api/click`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ message: 'button clicked' })
     }).catch(() => {});
   };

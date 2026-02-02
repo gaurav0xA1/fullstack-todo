@@ -21,7 +21,9 @@ function Home({ user, onSignOut }) {
 
   //fetch tasks from backend
   const fetchTasks = async () => {
-    const res = await fetch(`${API_BASE_URL}/api/tasks?userId=${user?.uid}`);
+    const res = await fetch(`${API_BASE_URL}/api/tasks?userId=${user?.uid}`, {
+      credentials: 'include'
+    });
     const data = await res.json();
     // Map MongoDB _id to id for consistency
     const tasksWithId = data.tasks.map(task => ({

@@ -86,7 +86,7 @@ function TaskViewPopup({ show, onClose, tasks = [], user }) {
                 onTaskUpdated={handleTaskUpdated}
                 onDelete={async (task) => {
                   // Delete from backend
-                  await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, { method: 'DELETE' });
+                  await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, { method: 'DELETE', credentials: 'include' });
                   setDescPopupTask(null);
                   // Remove from localTasks
                   setLocalTasks(prev => prev.filter(t => t.id !== task.id));

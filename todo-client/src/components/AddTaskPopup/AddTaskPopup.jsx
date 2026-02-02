@@ -24,6 +24,7 @@ function AddTaskPopup({ onClose, onAdd, user, editTask }) {
         res = await fetch(`${API_BASE_URL}/api/tasks/${editTask.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({
             title: taskName,
             description: taskDescription,
@@ -36,6 +37,7 @@ function AddTaskPopup({ onClose, onAdd, user, editTask }) {
         res = await fetch(`${API_BASE_URL}/api/tasks`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({
             title: taskName,
             description: taskDescription,
